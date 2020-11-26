@@ -1,57 +1,17 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const Classes = require('./lib/Classes');
 
 let continueBool = true;
 
-const 
+const Bob = new Classes.Employee('Bob', 'asdf', 'Bob@Classes.Employee.com');
 
-class Employee{
-    constructor(name, id, email){
-        this.name = name;
-        this.id = id;
-        this.email = email;
+console.log(Bob.name, Bob.email, Bob.getRole());
 
-        this.getName() = () => name;
-        this.getId() = () => id;
-        this.getEmail() = () => email;
-        this.getRole() = () => "Employee";
-    }
-}
+const billy = new Classes.Engineer('Billy', '12345', 'billy@gmail.com', 'something_cute');
 
-class Manager extends Employee{
-    // include officeNumber and update getRole()
-    constructor(name, id, email, officeNumber){
-        super(name, id, email);
-        this.officeNumber = officeNumber;
+console.log(billy.name, billy.getRole(), billy.getEmail());
 
-        this.getRole() = () => "Manager";
-    }
-}
-
-class Engineer extends Employee{
-    // include github, getGithub(), and update getRole()
-    constructor(name, id, email, github){
-        super(name, id, email);
-        this.github = github;
-
-        this.getGithub() = () => github;
-
-        this.getRole() = () => "Engineer";
-    }
-}
-
-class Intern extends Employee{
-    // include school, getSchool, and update getRole()
-    constructor(name, id, email, school){
-        super(name, id, email);
-        this.school = school;
-
-        this.getSchool() = () => school;
-
-        this.getRole() = () => "Intern";
-    }
-}
-
-while (continueBool) {
-    //run inquirer based on employee role (first is manager, after is selected)
-}
+// while (continueBool) {
+//     //run inquirer based on employee role (first is manager, after is selected)
+// }
