@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const WT = require('./lib/WorkerTypes');
 const Qs = require('./lib/Questions');
+const genHTML = require('./lib/HTMLgenerate');
 
 let continueBool = true;
 let roster = [];
@@ -19,25 +20,35 @@ const askQuestions = async () => {
         switch(decision){
             case "Manager":
                 qList = qList.concat(Qs.managerQ);
-                console.log("it's a manager!");
                 break;
             case "Engineer":
                 qList = qList.concat(Qs.engineerQ);
-                console.log("it's an engineer!");
                 break;
             case "Intern":
                 qList = qList.concat(Qs.internQ); 
-                console.log("it's an intern!");
                 break;
         }
-        console.log(qList);
         let ans = await inquirer.prompt(qList);
         ans.empType = decision;
+
         roster.push(ans);
+
         continueBool = await inquirer.prompt(Qs.continueQ);
         continueBool = continueBool.continueVal;
-        console.log(continueBool, roster);
     }
+
+    makeFiles();
+}
+const makeFiles = function() {
+    try {
+        fs.mkdirSync('./results')
+    } catch {
+        console.log('found and error');
+    }
+    input = genHTML.generatePage(roster);
+    fs.writeFileSync('./results/html_output.html', input);
+    input = genHTML.generateCss();
+    fs.writeFileSync('./results/css_output.css', input);
 }
 
 askQuestions();
