@@ -42,13 +42,15 @@ const askQuestions = async () => {
 const makeFiles = function() {
     try {
         fs.mkdirSync('./results')
-    } catch {
-        console.log('found and error');
+    } catch (EEXIST) {
+        console.log("results folder already exists - now generating HTML");
     }
     input = genHTML.generatePage(roster);
     fs.writeFileSync('./results/html_output.html', input);
+    console.log('HTML Generated!');
     input = genHTML.generateCss();
     fs.writeFileSync('./results/css_output.css', input);
+    console.log('CSS Generated!');
 }
 
 askQuestions();
